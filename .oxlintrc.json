@@ -1,0 +1,124 @@
+// The lint rules, run by oxlint: the recommended rules of ESLint, typescript-eslint (type-checked) and the React team,
+// a few more named below, and two rules that keep names readable.
+//
+// - oxlint's correctness rules are errors. They cover most of those recommended rules. The rest are named below.
+// - The type-aware rules run on tsgolint (oxlint-tsgolint), which uses TypeScript's own type checker and the tsconfigs.
+// - React: oxlint's react plugin has the rules of eslint-plugin-react and the React team's hooks rules, including the
+//   React Compiler's.
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    // Every plugin is on for every file. The correctness rules only cover plugins turned on here, not ones an override
+    // turns on. The override below keeps the TypeScript and React rules to TypeScript files.
+    "plugins": ["eslint", "typescript", "react", "unicorn", "oxc"],
+    "categories": {
+        "correctness": "error"
+    },
+    "env": {
+        "builtin": true
+    },
+    "options": {
+        "typeAware": true,
+        "reportUnusedDisableDirectives": "warn"
+    },
+    "ignorePatterns": ["**/dist/", "**/dev-dist/", "**/test-results/", "**/playwright-report/"],
+    "rules": {
+        // Strict equality. "== null" is allowed, because it is a short way to say "null or undefined".
+        "eqeqeq": ["error", "always", { "null": "ignore" }],
+
+        // Turned on by typescript-eslint's recommended set (its eslint-recommended overrides).
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error",
+
+        // Readable names. No single-letter names except loop counters, coordinates, a sort comparator's (a, b) and type
+        // parameters (<T>). camelCase for everything except constants. oxlint has no camelcase rule, so id-match checks
+        // it: no underscore inside a name, unless the name is in capitals (MAX_ROWS).
+        //
+        // "z" is allowed for one thing only: Zod's namespace (import * as z from 'zod'), which Zod's docs write as
+        // z.string(). The rule cannot tell what a name is for, so name nothing else z.
+        "id-length": [
+            "error",
+            {
+                "min": 2,
+                "exceptions": ["i", "j", "x", "y", "a", "b", "_", "z"],
+                "properties": "never",
+                "checkGeneric": false
+            }
+        ],
+        "id-match": ["error", "^_*(?:[^_]*|[^a-z]*)_*$"],
+
+        // ESLint's recommended rules that oxlint keeps outside its correctness rules.
+        "no-case-declarations": "error",
+        "no-empty": "error",
+        "no-fallthrough": "error",
+        "no-prototype-builtins": "error",
+        "no-redeclare": "error",
+        "no-regex-spaces": "error",
+        "preserve-caught-error": "error"
+    },
+    "overrides": [
+        {
+            // Scripts and config files that run in Node.
+            "files": ["**/*.mjs", "**/*.config.{js,ts}"],
+            "env": {
+                "node": true
+            }
+        },
+        {
+            // TypeScript and React.
+            "files": ["**/*.{ts,tsx}"],
+            "env": {
+                "browser": true
+            },
+            "rules": {
+                // typescript-eslint's type-checked recommended rules that oxlint keeps outside its correctness rules.
+                "no-array-constructor": "error",
+                "typescript/no-empty-object-type": "error",
+                "typescript/no-misused-promises": "error",
+                "typescript/no-namespace": "error",
+                "typescript/no-require-imports": "error",
+                "typescript/no-unnecessary-type-assertion": "error",
+                "typescript/no-unnecessary-type-constraint": "error",
+                "typescript/no-unsafe-argument": "error",
+                "typescript/no-unsafe-assignment": "error",
+                "typescript/no-unsafe-call": "error",
+                "typescript/no-unsafe-enum-comparison": "error",
+                "typescript/no-unsafe-function-type": "error",
+                "typescript/no-unsafe-member-access": "error",
+                "typescript/no-unsafe-return": "error",
+                "typescript/only-throw-error": "error",
+                "typescript/prefer-promise-reject-errors": "error",
+                "typescript/require-await": "error",
+                "typescript/restrict-plus-operands": "error",
+
+                // The app's own TypeScript rules. `any` and the non-null assertion (!) are allowed, as oxlint leaves
+                // them. A function may be used above where it is declared, so a file reads top-down: the component
+                // first, then its helpers.
+                "no-use-before-define": ["warn", { "functions": false, "classes": true, "variables": false }],
+                "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+                "typescript/ban-ts-comment": ["error", { "ts-expect-error": "allow-with-description" }],
+
+                // The React team's hooks rules at their recommended levels. The React Compiler's other rules are
+                // correctness rules.
+                "react/rules-of-hooks": "error",
+                "react/exhaustive-deps": "warn",
+                "react/incompatible-library": "warn",
+                "react/unsupported-syntax": "warn",
+
+                // React rules beyond correctness: react/no-unknown-property (with no "css" exception, because styles go
+                // through Material UI's sx), and the rules in @eslint-react's recommended set.
+                "react/no-unknown-property": "error",
+                "react/no-unstable-nested-components": "error",
+                "react/no-namespace": "error",
+                "react/no-array-index-key": "warn",
+                "react/no-clone-element": "warn",
+                "react/no-danger": "warn",
+                "react/no-react-children": "warn",
+                "react/jsx-no-comment-textnodes": "warn",
+                "react/jsx-no-script-url": "warn",
+                "react/iframe-missing-sandbox": "warn"
+            }
+        }
+    ]
+}

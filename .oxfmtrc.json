@@ -1,0 +1,13 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "es5",
+    "endOfLine": "lf",
+    "sortPackageJson": false,
+    "ignorePatterns": ["**/dist", "**/dev-dist", "**/node_modules", "**/test-results", "**/playwright-report", "pnpm-lock.yaml"]
+}

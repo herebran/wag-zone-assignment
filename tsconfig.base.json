@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "target": "es2023",
+        "lib": ["ES2023", "DOM"],
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "moduleDetection": "force",
+        "verbatimModuleSyntax": true,
+        "erasableSyntaxOnly": true,
+        "allowArbitraryExtensions": true,
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "jsx": "react-jsx",
+
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+
+        "skipLibCheck": true,
+        "noEmit": true,
+        "types": []
+    }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "wag-zone-assignment",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Zone Assignment, the Walgreens Priority Zone Assignment board for pharmacy operations managers: a static site in React, TypeScript and Material UI that keeps its data in the browser and runs without a connection",
+  "packageManager": "pnpm@12.14.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.14.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run && vite build && playwright test",
+    "typecheck": "tsc -b",
+    "lint": "oxlint && oxfmt --check \"**/*.{js,mjs,ts,tsx}\"",
+    "format": "oxfmt --write \"**/*.{js,mjs,ts,tsx}\""
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/source-serif-4": "^5.3.1",
+    "@hookform/resolvers": "^7.0.6",
+    "@mui/material": "^9.5.0",
+    "@mui/x-date-pickers": "^9.17.0",
+    "@tabler/icons-react": "^3.51.0",
+    "date-fns": "^4.4.0",
+    "immer": "^11.2.10",
+    "material-ui-popup-state": "^5.3.7",
+    "notistack": "^3.0.2",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.92.0",
+    "react-hotkeys-hook": "^5.4.0",
+    "workbox-window": "^7.4.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "jsdom": "^30.1.3",
+    "oxfmt": "^0.78.0",
+    "oxlint": "^1.93.0",
+    "oxlint-tsgolint": "^7.0.2006",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.4",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.0.5",
+    "workbox-build": "^7.4.1"
+  }
+}
